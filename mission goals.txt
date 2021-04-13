@@ -1,0 +1,20 @@
+Make things as easy as possible for the user and the programmer, with
+abstraction and doing the hard part behind the scenes.
+
+Ask as little information of the user as necessary, and never ask redundant
+questions. (Exception: When asking for edgework information, ask for the
+complete standard rundown of each category, for consistency.)
+
+If a ModuleSolver is not elegant, more abstraction is needed.
+
+Only create abstraction that is actually needed.
+
+Enforce static duck typing with type hints.
+
+Unchanging variables use immutable types.
+
+Use the right standard library tools for the job.
+
+Require as few external dependencies as possible; ideally none.
+
+Phrase inputs as questions, with commands limited to formatting.
