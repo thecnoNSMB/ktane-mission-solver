@@ -15,9 +15,6 @@ PortPlateList = Tuple[Tuple['Port', ...], ...]
 
 #resolve conflicts where mypy and pylint both report the same issue, as needed
 
-#todo: rewrite test code entirely to match the refactor and fix
-#todo: move these todos to github issues
-
 class Port(Enum):
     "Ports for edgework information."
     DVID = auto()
@@ -221,7 +218,6 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         "Whether or not the bomb has the given port."
         return any(port in plate for plate in self.port_plates)
 
-#todo: implement boss module (and needy?) handling when needed
 class ModuleSolver(ABC):
     "Prototype class for regular module solvers."
     bomb: Edgework #Should be assigned directly by managing BombSolver
