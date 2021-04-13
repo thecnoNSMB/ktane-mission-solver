@@ -16,6 +16,7 @@ PortPlateList = Tuple[Tuple['Port', ...], ...]
 #resolve conflicts where mypy and pylint both report the same issue, as needed
 
 #todo: rewrite test code entirely to match the refactor and fix
+#todo: move these todos to github issues
 
 class Port(Enum):
     "Ports for edgework information."
