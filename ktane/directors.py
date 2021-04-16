@@ -141,16 +141,16 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
             self.port_plates = port_plates
         elif EdgeFlag.PORTS in self._required_edgework_flag:
             if ask.yes_no("Are there any port plates?"):
+                #todo: add type alias for port plate to prevent redundancy here
+                plate_list: List[Tuple[Port, ...]] = []
                 talk("How many port plates are there?")
                 plate_count = ask.positive_int()
                 for i in range(plate_count):
                     talk(f"What ports, if any, are on plate {i+1}?")
                     plate = ask.list_from_set(self._port_names, print_options=True,)
-                    #dirty tuple hacking
-                    #todo: fix the dirty tuple hacking?
-                    self.port_plates = (*self.port_plates,
-                                        tuple(self._port_name_to_enum[port]
-                                              for port in plate))
+                    plate_list.append(tuple(self._port_name_to_enum[port]
+                                            for port in plate))
+                self.port_plates = tuple(plate_list)
             #otherwise, the default is no plates and will do
 
     def _get_total_modules(self, total_modules: Optional[int]) -> None:
