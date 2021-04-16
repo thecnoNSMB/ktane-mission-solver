@@ -2,7 +2,7 @@
 
 from collections import deque
 from enum import Enum, Flag, auto
-from typing import Deque, Tuple, Optional, Final
+from typing import Deque, Tuple, Optional, Final, List, Type
 from abc import ABC, abstractmethod
 
 from ktane.ask import talk
@@ -385,3 +385,23 @@ class BombSolver:
             talk("Bomb defused!")
         else:
             raise RuntimeError("Queue empty but bomb not defused.")
+
+def from_pool(*modules: Type[ModuleSolver], count: int = 1,
+              print_options: bool = True) -> List[ModuleSolver]:
+    """Ask the user which of the modules in the pool is present on the bomb,
+    and return the associated solvers."""
+    module_names = {str(module.name) for module in modules}
+    assert len(module_names) == len(modules)
+    if print_options:
+        talk("Which of the following modules are present on the bomb?")
+    else:
+        talk("Which modules in the pool are present on the bomb?")
+    modules_present = ask.list_from_set(module_names, print_options=print_options,
+                                        expected_len=count)
+    final_modules = []
+    for module_name in set(modules_present):
+        for module in modules:
+            if str(module.name).lower() == module_name: #module.name will be lowercase
+                final_modules.append(module(modules_present.count(module_name)))
+                break
+    return final_modules
