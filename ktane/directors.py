@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 from ktane.ask import talk
 from ktane import ask
 
-__all__ = ["EdgeFlag", "Edgework", "ModuleSolver", "BombSolver"]
+__all__ = ["EdgeFlag", "Edgework", "ModuleSolver", "BombSolver", "from_pool"]
 
 IndicatorList = Tuple[Tuple[str, bool], ...]
 PortPlateList = Tuple[Tuple['Port', ...], ...]
