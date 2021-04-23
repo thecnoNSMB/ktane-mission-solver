@@ -11,7 +11,8 @@ from ktane import ask
 __all__ = ["EdgeFlag", "Edgework", "ModuleSolver", "BombSolver", "from_pool"]
 
 IndicatorList = Tuple[Tuple[str, bool], ...]
-PortPlateList = Tuple[Tuple['Port', ...], ...]
+PortPlate = Tuple['Port', ...]
+PortPlateList = Tuple[PortPlate, ...]
 
 #resolve conflicts where mypy and pylint both report the same issue, as needed
 
@@ -141,8 +142,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
             self.port_plates = port_plates
         elif EdgeFlag.PORTS in self._required_edgework_flag:
             if ask.yes_no("Are there any port plates?"):
-                #todo: add type alias for port plate to prevent redundancy here
-                plate_list: List[Tuple[Port, ...]] = []
+                plate_list: List[PortPlate] = []
                 talk("How many port plates are there?")
                 plate_count = ask.positive_int()
                 for i in range(plate_count):
