@@ -1,0 +1,9 @@
+resort queue before doing a solve, not after
+
+have: "ask about right keys" flag, forbidden modules by name, required modules by name
+
+resort: move all required solves to the front, move all forbidden solves to the back
+
+interface: when it actually comes up, on the first module, "Turn each module's right key
+in descending order of the priority displayed.", then "Turn the lowest priority left
+key that hasn't already been turned." for every subsequent solve
