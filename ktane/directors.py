@@ -376,11 +376,11 @@ class BombSolver:
         while self.queue:
             if self.edgework.defused:
                 raise RuntimeError("Bomb defused with items on the queue.")
+            self.resort_queue()
             solver = self.queue.pop()
             solver.solve()
             if not solver.all_solved:
                 self.queue.append(solver)
-            self.resort_queue()
         if self.edgework.defused:
             talk("Bomb defused!")
         else:
