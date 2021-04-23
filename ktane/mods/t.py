@@ -17,7 +17,7 @@ class TurnTheKeys(ModuleSolver):
 
     required_solves: Final = (
         "Password", "Who's on First", "Keypad", "Morse Code", "Wires", "The Button",
-        #Crazy Talk, Listening, Orientation Cube, Two Bits, Colour Flash, Round Keypad
+        "Colour Flash", #Crazy Talk, Listening, Orientation Cube, Two Bits, Round Keypad
     )
     banned_solves: Final = (
         "Maze", "Memory", "Complicated Wires", "Wire Sequence", "Simon Says",

@@ -19,6 +19,7 @@ ALL_VANILLA: Final = (
 )
 
 ALL_MODS: Final = (
+    mods.c.ColourFlash,
     mods.t.TurnTheKeys,
 )
 
