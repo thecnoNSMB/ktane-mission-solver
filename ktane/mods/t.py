@@ -1,6 +1,6 @@
 "Modded modules whose names begin with the letter T."
 
-from collections import deque
+from collections import deque #TurnTheKeys
 from typing import Final, Deque
 
 from ktane.directors import ModuleSolver
