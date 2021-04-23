@@ -1,17 +1,36 @@
 "Modded modules whose names begin with the letter T."
 
-from typing import Final
+from collections import deque
+from typing import Final, Deque
 
 from ktane.directors import ModuleSolver
 from ktane.ask import talk
 
-#todo: turn the keys
 class TurnTheKeys(ModuleSolver):
     "Solver for Turn The Keys."
     name: Final = "Turn The Keys"
     required_edgework: Final = ()
 
+    required_solves: Final = (
+        "Password", "Who's on First", "Keypad", "Morse Code", "Wires", "The Button",
+        #Crazy Talk, Listening, Orientation Cube, Two Bits, Colour Flash, Round Keypad
+    )
+    banned_solves: Final = (
+        "Maze", "Memory", "Complicated Wires", "Wire Sequence", "Simon Says",
+        #Cryptography, Semaphore, Combination Lock, Astrology, Switches, Plumbing
+    )
+
     right_keys_turned: bool
+
+    def resort_queue(self, queue: Deque[ModuleSolver]) -> Deque[ModuleSolver]:
+        new_queue = deque(module for module in queue
+                          if module.name not in self.required_solves
+                          and module.name not in self.banned_solves)
+        new_queue.extend(module for module in queue
+                         if module.name in self.required_solves)
+        new_queue.extendleft(module for module in queue
+                             if module.name in self.banned_solves)
+        return new_queue
 
     def custom_data_init(self) -> None:
         self.right_keys_turned: bool = False
