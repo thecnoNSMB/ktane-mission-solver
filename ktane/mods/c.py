@@ -19,7 +19,7 @@ class ColourFlash(ModuleSolver):
 
     def stage(self) -> None: #pylint: disable=too-many-branches #can't help it
         talk("What color is the last word in the sequence?")
-        last_color = ask.str_from_set(self.valid_colors, print_options=True)
+        last_color = ask.str_from_set(self.valid_colors)
         if last_color == "red":
             if ask.yes_no("Does the word Green appear at least three times?"):
                 talk("Press Yes on the third word whose color or text is green.")
@@ -59,7 +59,7 @@ class ColourFlash(ModuleSolver):
                 talk("Press No on the last word whose text is Yellow.")
             else:
                 talk("Note the text of the seventh word.")
-                talk("Press the first word with that color.")
+                talk("Press No on the first word with that color.")
         else: #white
             if ask.yes_no("Does the third word's color match"
                           " the fourth or fifth words' text?"):
