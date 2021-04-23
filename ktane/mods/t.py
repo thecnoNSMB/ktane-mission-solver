@@ -27,6 +27,7 @@ class TurnTheKeys(ModuleSolver):
     right_keys_turned: bool
 
     def resort_queue(self, queue: Deque[ModuleSolver]) -> Deque[ModuleSolver]:
+        #todo: only resort if needed
         new_queue = deque(module for module in queue
                           if module.name not in self.required_solves
                           and module.name not in self.banned_solves)
