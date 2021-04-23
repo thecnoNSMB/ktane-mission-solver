@@ -40,9 +40,9 @@ class TurnTheKeys(ModuleSolver):
         super().on_this_solved()
 
     def stage(self) -> None:
-        talk("This module and others like it have a number"
-             " displaying each module's priority.")
         if not self.right_keys_turned:
+            talk("This module and others like it have a number"
+                " displaying each module's priority.") #first time this bomb only
             talk("Turn each right key on modules of this type,"
                  " in descending order of priority.")
         talk("Turn the lowest priority left key that hasn't already been turned.")
