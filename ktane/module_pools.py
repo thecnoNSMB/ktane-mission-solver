@@ -2,8 +2,7 @@
 
 from typing import Final
 
-from ktane import vanilla
-from ktane.mods import t
+from ktane import vanilla, mods
 
 ALL_VANILLA: Final = (
     vanilla.Wires,
@@ -20,7 +19,7 @@ ALL_VANILLA: Final = (
 )
 
 ALL_MODS: Final = (
-    t.TurnTheKeys,
+    mods.t.TurnTheKeys,
 )
 
 ALL_SOLVABLE: Final = ALL_VANILLA + ALL_MODS
