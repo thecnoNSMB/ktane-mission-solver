@@ -70,6 +70,8 @@ def talk(message: str = "", /, *, warning_bypass: bool = False) -> None:
 def yes_no(prompt: str, /) -> bool:
     "Ask the user a yes/no question."
     prompt += " (y/n) "
+    if len(prompt) > MAX_LINE_PRINT_LENGTH:
+        warn(f'WARNING: Prompt too long: "{prompt}"')
     return input(prompt).strip().lower() == 'y'
 
 def list_from_func(func: Callable[[str], bool], *, case_sensitive: bool = False,
