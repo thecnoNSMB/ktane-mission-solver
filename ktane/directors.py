@@ -320,6 +320,10 @@ class ModuleSolver(ABC):
         self.reset_stages()
         self.solved_count += 1
 
+    def resort_queue(self, queue: Deque['ModuleSolver']) -> Deque['ModuleSolver']:
+        "Adjust the solve queue, if needed."
+        return queue
+
     #endregion
 
     @property
@@ -368,6 +372,10 @@ class BombSolver:
     def resort_queue(self) -> None:
         """Pass the queue through every solver subscribed to this event
         to ensure that the solve queue is in an acceptable state."""
+        new_queue = self.queue.copy()
+        for solver in self.queue:
+            new_queue = solver.resort_queue(new_queue.copy()) #just in case
+        self.queue = new_queue.copy() #just in case!!!
 
     def solve(self, *, start_time_mins: Optional[int] = None,
               max_strikes: Optional[int] = None) -> None:

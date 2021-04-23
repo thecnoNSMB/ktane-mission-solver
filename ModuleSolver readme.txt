@@ -17,6 +17,8 @@ custom_data_init(): Called automatically on object creation.
     Used to initialize module-specific custom data.
 custom_data_clear(): Called automatically on module solve or stage reset.
     Used to clear module-specific custom data.
+resort_queue(): Called automatically before each solve with the current solver queue.
+    Used to change the order of solvers in the queue if needed.
 
 Other elements:
 total_count: The total number of module instances.
