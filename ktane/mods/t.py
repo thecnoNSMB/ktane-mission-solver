@@ -6,6 +6,10 @@ from typing import Final, Deque
 from ktane.directors import ModuleSolver
 from ktane.ask import talk
 
+__all__ = [
+    "TurnTheKeys",
+]
+
 class TurnTheKeys(ModuleSolver):
     "Solver for Turn The Keys."
     name: Final = "Turn The Keys"
