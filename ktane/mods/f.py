@@ -11,6 +11,7 @@ __all__ = [
 class FollowTheLeader(ModuleSolver):
     "Solver for Follow the Leader."
     name: Final = "Follow the Leader"
+    id: Final = "FollowTheLeaderModule"
     required_edgework: Final = (EdgeFlag.PORTS, EdgeFlag.SERIAL, EdgeFlag.BATTERIES,
                                 EdgeFlag.INDICATORS)
 
