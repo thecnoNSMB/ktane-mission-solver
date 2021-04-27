@@ -25,6 +25,7 @@ __all__ = [
 class Wires(ModuleSolver):
     "Solver for vanilla Wires."
     name: Final = "Wires"
+    id: Final = "Wires"
     required_edgework: Final = (EdgeFlag.SERIAL,)
 
     def stage(self) -> None: #pylint: disable=too-many-branches #can't help it
@@ -75,6 +76,7 @@ class Wires(ModuleSolver):
 class TheButton(ModuleSolver):
     "Solver for vanilla The Button."
     name: Final = "The Button"
+    id: Final = "BigButton"
     required_edgework: Final = (EdgeFlag.BATTERIES, EdgeFlag.INDICATORS)
 
     valid_colors: Final = {"red", "yellow", "blue", "white"}
@@ -119,6 +121,7 @@ class TheButton(ModuleSolver):
 class Keypad(ModuleSolver):
     "Solver for vanilla Keypad."
     name: Final = "Keypad"
+    id: Final = "Keypad"
     required_edgework: Final = ()
 
     valid_symbols: Final = {
@@ -161,6 +164,7 @@ class Keypad(ModuleSolver):
 class SimonSays(ModuleSolver):
     "Solver for vanilla Simon Says."
     name: Final = "Simon Says"
+    id: Final = "Simon"
     required_edgework: Final = (EdgeFlag.SERIAL, EdgeFlag.STRIKES)
     total_stages = 5 #max number of stages
 
@@ -222,6 +226,7 @@ class SimonSays(ModuleSolver):
 class WhosOnFirst(ModuleSolver):
     "Solver for vanilla Who's On First."
     name: Final = "Who's on First"
+    id: Final = "WhosOnFirst"
     required_edgework: Final = ()
     total_stages = 3
 
@@ -330,6 +335,7 @@ class _MemoryItem(NamedTuple):
 class Memory(ModuleSolver):
     "Solver for vanilla Memory."
     name: Final = "Memory"
+    id: Final = "Memory"
     required_edgework: Final = ()
     total_stages = 5
     reset_stages_on_strike = True
@@ -422,6 +428,7 @@ class Memory(ModuleSolver):
 class MorseCode(ModuleSolver):
     "Solver for vanilla Morse Code."
     name: Final = "Morse Code"
+    id: Final = "Morse"
     required_edgework: Final = ()
 
     word_to_freq: Final = {
@@ -455,6 +462,7 @@ class MorseCode(ModuleSolver):
 class ComplicatedWires(ModuleSolver):
     "Solver for vanilla Complicated Wires."
     name: Final = "Complicated Wires"
+    id: Final = "Venn"
     required_edgework: Final = (EdgeFlag.SERIAL, EdgeFlag.PORTS, EdgeFlag.BATTERIES)
 
     venn_diagram: Final = (
@@ -512,6 +520,7 @@ class _SequenceWire(NamedTuple):
 class WireSequence(ModuleSolver):
     "Solver for vanilla Wire Sequence."
     name: Final = "Wire Sequence"
+    id: Final = "WireSequence"
     required_edgework: Final = ()
     total_stages = 4
 
@@ -573,6 +582,7 @@ class WireSequence(ModuleSolver):
 class Maze(ModuleSolver):
     "Solver for vanilla Maze."
     name: Final = "Maze"
+    id: Final = "Maze"
     required_edgework: Final = ()
 
     mazes: Final[Tuple[Tuple[maze.Wall, ...], ...]] = (
@@ -688,6 +698,7 @@ class Maze(ModuleSolver):
 class Password(ModuleSolver):
     "Solver for vanilla Password."
     name: Final = "Password"
+    id: Final = "Password"
     required_edgework: Final = ()
 
     valid_words: Final = {

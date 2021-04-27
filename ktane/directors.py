@@ -234,6 +234,11 @@ class ModuleSolver(ABC):
 
     @property
     @abstractmethod
+    def id(self) -> str: #pylint: disable=invalid-name #too short to clear the regex
+        "The mod ID of the module, for internal use."
+
+    @property
+    @abstractmethod
     def required_edgework(self) -> Tuple[EdgeFlag, ...]:
         "Flags indicating the edgework this module needs to know."
 

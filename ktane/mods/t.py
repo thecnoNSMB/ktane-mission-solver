@@ -13,14 +13,15 @@ __all__ = [
 class TurnTheKeys(ModuleSolver):
     "Solver for Turn The Keys."
     name: Final = "Turn The Keys"
+    id: Final = "TurnTheKeyAdvanced"
     required_edgework: Final = ()
 
     required_solves: Final = (
-        "Password", "Who's on First", "Keypad", "Morse Code", "Wires", "The Button",
-        "Colour Flash", #Crazy Talk, Listening, Orientation Cube, Two Bits, Round Keypad
+        "Password", "WhosOnFirst", "Keypad", "Morse", "Wires", "BigButton",
+        "ColourFlash", #Crazy Talk, Listening, Orientation Cube, Two Bits, Round Keypad
     )
     banned_solves: Final = (
-        "Maze", "Memory", "Complicated Wires", "Wire Sequence", "Simon Says",
+        "Maze", "Memory", "Venn", "WireSequence", "Simon",
         #Cryptography, Semaphore, Combination Lock, Astrology, Switches, Plumbing
     )
 
@@ -29,12 +30,12 @@ class TurnTheKeys(ModuleSolver):
     def resort_queue(self, queue: Deque[ModuleSolver]) -> Deque[ModuleSolver]:
         #todo: only resort if needed
         new_queue = deque(module for module in queue
-                          if module.name not in self.required_solves
-                          and module.name not in self.banned_solves)
+                          if module.id not in self.required_solves
+                          and module.id not in self.banned_solves)
         new_queue.extend(module for module in queue
-                         if module.name in self.required_solves)
+                         if module.id in self.required_solves)
         new_queue.extendleft(module for module in queue
-                             if module.name in self.banned_solves)
+                             if module.id in self.banned_solves)
         return new_queue
 
     def custom_data_init(self) -> None:

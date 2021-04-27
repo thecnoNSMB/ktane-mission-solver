@@ -13,6 +13,7 @@ __all__ = [
 class ColourFlash(ModuleSolver):
     "Solver for Colour Flash."
     name: Final = "Colour Flash"
+    id: Final = "ColourFlash"
     required_edgework: Final = ()
 
     valid_colors: Final = {"red", "yellow", "green", "blue", "magenta", "white"}
