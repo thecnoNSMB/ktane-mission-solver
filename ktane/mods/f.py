@@ -20,10 +20,10 @@ class FollowTheLeader(ModuleSolver):
     valid_colors: Final = {'red', 'yellow', 'green', 'blue', 'black', 'white'}
 
     def stage(self) -> None:
-        talk("What plugs are the wires connected to, in clockwise order?")
+        talk("What plugs are the wires connected to, in numeric order?")
         wire_plugs = ask.list_from_set({'1', '2', '3', '4', '5', '6',
                                         '7', '8', '9', '10', '11', '12'})
-        talk("Starting from plug 1, what colors are the wires in order?")
+        talk("Starting from plug 1, what colors are the wires in clockwise order?")
         wire_colors = ask.list_from_set(self.valid_colors, expected_len=len(wire_plugs))
         wires = list(zip(wire_plugs, wire_colors))
         current_index: int
