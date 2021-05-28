@@ -214,6 +214,17 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
             return any(v in self.serial for v in 'aeiou')
         return False
 
+    @property
+    def serial_first_digit(self) -> str:
+        "The first numeric digit of the serial number."
+        if self.serial:
+            return [c for c in self.serial if c.isdigit()][0]
+        return '' #undefined behavior
+
+    def has_indicator(self, indicator: str, lit: bool) -> bool:
+        "Whether or not the bomb has the given indicator."
+        return (indicator.lower(), lit) in self.indicators
+
     def has_port(self, port: Port) -> bool:
         "Whether or not the bomb has the given port."
         return any(port in plate for plate in self.port_plates)
