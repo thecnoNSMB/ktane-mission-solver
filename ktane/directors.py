@@ -221,6 +221,13 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
             return [c for c in self.serial if c.isdigit()][0]
         return '' #undefined behavior
 
+    @property
+    def serial_first_letter(self) -> str:
+        "The first alphabetic character of the serial number."
+        if self.serial:
+            return [c for c in self.serial if c.isalpha()][0]
+        return '' #undefined behavior
+
     def has_indicator(self, indicator: str, lit: bool) -> bool:
         "Whether or not the bomb has the given indicator."
         return (indicator.lower(), lit) in self.indicators
