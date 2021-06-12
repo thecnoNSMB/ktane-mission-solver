@@ -44,7 +44,10 @@ class FollowTheLeader(ModuleSolver):
         "Given a starting index, determine which wires in the loop to cut."
         rules_reverse_order = wire_colors[start_index] in ('red', 'green', 'white')
         current_index = start_index
+        prev_cut = True
         talk(f"Cut the wire starting at plug {current_index}.")
+
+        prev_index = current_index
         current_index = (current_index + 1) % len(wire_plugs)
         current_rule: int
         if self.bomb.serial_first_letter:
@@ -53,31 +56,38 @@ class FollowTheLeader(ModuleSolver):
         else:
             current_rule = 0
         while current_index != start_index:
-            if current_rule == 0 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
-            elif current_rule == 1 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
-            elif current_rule == 2 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+            if (current_rule == 0
+                    and wire_colors[prev_index] not in {"yellow", "blue", "green"}):
+                prev_cut = True
+            elif current_rule == 1 and int(wire_plugs[prev_index]) % 2 == 0:
+                prev_cut = True
+            elif current_rule == 2 and prev_cut:
+                prev_cut = True
             elif current_rule == 3 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 4 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 5 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 6 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
-            elif current_rule == 7 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
+            elif current_rule == 7 and not prev_cut:
+                prev_cut = True
             elif current_rule == 8 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 9 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 10 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 11 and True:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                prev_cut = True
             elif current_rule == 12 and True:
+                prev_cut = True
+            else:
+                prev_cut = False
+
+            if prev_cut:
                 talk(f"Cut the wire starting at plug {current_index}.")
+            prev_index = current_index
             current_index = (current_index + 1) % len(wire_plugs)
             current_rule = (current_rule + (-1 if rules_reverse_order else 1)) % 13
