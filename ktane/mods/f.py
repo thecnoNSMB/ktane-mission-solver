@@ -45,7 +45,7 @@ class FollowTheLeader(ModuleSolver):
         rules_reverse_order = wire_colors[start_index] in ('red', 'green', 'white')
         current_index = start_index
         prev_cut = True
-        talk(f"Cut the wire starting at plug {current_index}.")
+        talk(f"Cut the wire starting at plug {wire_plugs[current_index]}.")
 
         prev_index = current_index
         current_index = (current_index + 1) % len(wire_plugs)
@@ -59,29 +59,35 @@ class FollowTheLeader(ModuleSolver):
             if (current_rule == 0
                     and wire_colors[prev_index] not in {"yellow", "blue", "green"}):
                 prev_cut = True
-            elif current_rule == 1 and int(wire_plugs[prev_index]) % 2 == 0:
+            elif current_rule == 1 and int(wire_plugs[current_index]) % 2 == 0:
                 prev_cut = True
             elif current_rule == 2 and prev_cut:
                 prev_cut = True
-            elif current_rule == 3 and True:
+            elif (current_rule == 3
+                  and wire_colors[prev_index] in {"red", "blue", "black"}):
                 prev_cut = True
-            elif current_rule == 4 and True:
+            elif current_rule == 4 and True: #todo
                 prev_cut = True
-            elif current_rule == 5 and True:
+            elif current_rule == 5 and True: #todo
                 prev_cut = True
-            elif current_rule == 6 and True:
+            elif (current_rule == 6
+                  and wire_colors[prev_index] in {"yellow", "white", "green"}):
                 prev_cut = True
             elif current_rule == 7 and not prev_cut:
                 prev_cut = True
-            elif current_rule == 8 and True:
+            elif current_rule == 8 and True: #todo
                 prev_cut = True
-            elif current_rule == 9 and True:
+            elif (current_rule == 9
+                  and wire_colors[prev_index] not in {"white", "black", "red"}):
                 prev_cut = True
-            elif current_rule == 10 and True:
+            elif (current_rule == 10
+                  and wire_colors[prev_index] != wire_colors[prev_index-1]):
                 prev_cut = True
-            elif current_rule == 11 and True:
+            elif current_rule == 11 and int(wire_plugs[current_index]) > 6:
                 prev_cut = True
-            elif current_rule == 12 and True:
+            elif (current_rule == 12
+                  and (wire_colors[prev_index] not in {"white", "black"}
+                       or wire_colors[prev_index-1] not in {"white", "black"})):
                 prev_cut = True
             else:
                 prev_cut = False
