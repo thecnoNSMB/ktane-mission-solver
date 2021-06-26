@@ -19,6 +19,7 @@ ALL_VANILLA: Final = (
 )
 
 ALL_MODS: Final = (
+    mods.a.Anagrams,
     mods.c.ColourFlash,
     mods.f.FollowTheLeader,
     mods.t.TurnTheKeys,
