@@ -23,7 +23,8 @@ class FollowTheLeader(ModuleSolver):
         talk("What plugs are the wires connected to, in numeric order?")
         wire_plugs = ask.list_from_set({'1', '2', '3', '4', '5', '6',
                                         '7', '8', '9', '10', '11', '12'})
-        talk("Starting from plug 1, what colors are the wires in clockwise order?")
+        talk(F"Starting from plug {wire_plugs[0]}, "
+             "what colors are the wires in clockwise order?")
         wire_colors = ask.list_from_set(self.valid_colors, expected_len=len(wire_plugs))
         start_index: int
         if self.bomb.has_port(Port.RJ45) and ('4' in wire_plugs and '5' in wire_plugs):
@@ -68,7 +69,7 @@ class FollowTheLeader(ModuleSolver):
                 prev_cut = True
             elif (current_rule == 4
                   and len({wire_colors[i] for i
-                           in range(current_index, current_index-3, -1)}) < 3):
+                           in range(prev_index, prev_index-3, -1)}) < 3):
                 prev_cut = True
             elif (current_rule == 5 #!= is equivalent to xor in this context
                   and ((wire_colors[prev_index] == wire_colors[current_index])
@@ -98,7 +99,7 @@ class FollowTheLeader(ModuleSolver):
                 prev_cut = False
 
             if prev_cut:
-                talk(f"Cut the wire starting at plug {current_index}.")
+                talk(f"Cut the wire starting at plug {wire_plugs[current_index]}.")
             prev_index = current_index
             current_index = (current_index + 1) % len(wire_plugs)
             current_rule = (current_rule + (-1 if rules_reverse_order else 1)) % 13
