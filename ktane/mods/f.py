@@ -66,7 +66,9 @@ class FollowTheLeader(ModuleSolver):
             elif (current_rule == 3
                   and wire_colors[prev_index] in {"red", "blue", "black"}):
                 prev_cut = True
-            elif current_rule == 4 and True: #todo two of the previous three share a color
+            elif (current_rule == 4
+                  and len({wire_colors[i] for i
+                           in range(current_index, current_index-3, -1)}) < 3):
                 prev_cut = True
             elif (current_rule == 5 #!= is equivalent to xor in this context
                   and ((wire_colors[prev_index] == wire_colors[current_index])
