@@ -76,8 +76,8 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         self._get_max_strikes(max_strikes)
         self._get_batteries(batteries)
         self._get_indicators(indicators)
-        self._get_serial(serial)
         self._get_ports(port_plates)
+        self._get_serial(serial)
         self._get_strikes(strikes)
         self._get_solves(solves)
 
