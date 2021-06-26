@@ -3,6 +3,8 @@ HOW TO MAKE A SOLVER
 Make a class subclassing ModuleSolver. It must provide the following:
 name: The name of the module for printing.
     Example: "Forget Me Not"
+id: The module ID as used in-game, for unique identification.
+    Example: "MemoryV2"
 required_edgework: The edgework information this module needs to know.
     Example: (EdgeFlag.BATTERIES, EdgeFlag.SERIAL)
 stage(): The method which is called to solve a single stage of the module,
