@@ -23,6 +23,7 @@ ALL_MODS: Final = (
     mods.c.ColourFlash,
     mods.f.FollowTheLeader,
     mods.t.TurnTheKeys,
+    mods.w.WordScramble,
 )
 
 ALL_SOLVABLE: Final = ALL_VANILLA + ALL_MODS
