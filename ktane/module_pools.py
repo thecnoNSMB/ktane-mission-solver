@@ -21,6 +21,7 @@ ALL_VANILLA: Final = (
 ALL_MODS: Final = (
     mods.a.Anagrams,
     mods.c.ColourFlash,
+    mods.c.CrazyTalk,
     mods.f.FollowTheLeader,
     mods.t.TurnTheKeys,
     mods.w.WordScramble,
