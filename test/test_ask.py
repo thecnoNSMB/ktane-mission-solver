@@ -44,7 +44,22 @@ def test_list_from_set(inputs_set: Set[str], case_sensitive: bool, print_options
         else:
             raise
 
+@given(st.data())
+def test_positive_int(data: st.DataObject) -> None:
+    "Test that ask.positive_int actually returns positive nonzero integers."
+    try:
+        with patch("builtins.input", lambda _: data.draw(st.sampled_from('0123456789'))):
+            return_int = ktane.ask.positive_int()
+            assert return_int > 0
+    except RuntimeError as message:
+        #expected failure if too many inputs fail
+        if str(message) == "Too many invalid user inputs.":
+            assume(False)
+        else:
+            raise
+
 if __name__ == "__main__":
     ktane.ask.ENABLE_PRINTING = False #type: ignore[misc] #disable printing for the test
     test_str_from_set()
     test_list_from_set()
+    test_positive_int()
