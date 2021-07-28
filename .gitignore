@@ -141,6 +141,6 @@ cython_debug/
 # End of template, other ignores
 .vscode/
 pylint_codes.txt
-test/
+test_old/
 .pylintrc
 setup.cfg
