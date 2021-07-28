@@ -1,19 +1,22 @@
 "Basic Hypothesis test suite for ktane.ask."
 
 import sys
+from typing import Set
 from unittest.mock import patch
 from hypothesis import given, assume, strategies as st
 
 sys.path.append('..')
 import ktane.ask #pylint: disable=wrong-import-position #directory hack
 
-@given(st.sets(st.text()), st.booleans(), st.data())
-def test_str_from_set(inputs_set, case_sensitive, data):
+@given(st.sets(st.text()), st.booleans(), st.booleans(), st.data())
+def test_str_from_set(inputs_set: Set[str], case_sensitive: bool, print_options: bool,
+                      data: st.DataObject) -> None:
     "Test that ask.str_from_set returns strings in the set passed to it."
     try:
         with patch("builtins.input", lambda _: data.draw(st.text())):
             return_string = ktane.ask.str_from_set(inputs_set,
-                                                   case_sensitive=case_sensitive)
+                                                   case_sensitive=case_sensitive,
+                                                   print_options=print_options)
             assert return_string in inputs_set
     except RuntimeError as message:
         #expected failure if too many inputs fail
@@ -22,14 +25,17 @@ def test_str_from_set(inputs_set, case_sensitive, data):
         else:
             raise
 
-@given(st.sets(st.text()), st.booleans(), st.data())
-def test_list_from_set(inputs_set, case_sensitive, data):
+@given(st.sets(st.text()), st.booleans(), st.booleans(), st.integers(), st.data())
+def test_list_from_set(inputs_set: Set[str], case_sensitive: bool, print_options: bool,
+                       expected_len: int, data: st.DataObject) -> None:
     """Test that ask.list_from_set returns lists
     containing only strings in the set passed to it."""
     try:
         with patch("builtins.input", lambda _: data.draw(st.text())):
             return_list = ktane.ask.list_from_set(inputs_set,
-                                                  case_sensitive=case_sensitive)
+                                                  case_sensitive=case_sensitive,
+                                                  print_options=print_options,
+                                                  expected_len=expected_len)
             assert all(s in inputs_set for s in return_list)
     except RuntimeError as message:
         #expected failure if too many inputs fail

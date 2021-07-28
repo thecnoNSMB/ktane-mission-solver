@@ -83,7 +83,7 @@ def list_from_func(func: Callable[[str], bool], *, case_sensitive: bool = False,
     if expected_len > 0:
         talk("(One per line.)")
         while len(results) < expected_len:
-            results.append(_from_func(lambda s: func(s) or s == "", case_sensitive))
+            results.append(_from_func(func, case_sensitive))
     else:
         talk("(One per line. End inputs by hitting ENTER without giving input.)")
         ans = _from_func(lambda s: func(s) or s == "", case_sensitive)
