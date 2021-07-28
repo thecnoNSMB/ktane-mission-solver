@@ -7,13 +7,6 @@ from hypothesis import given, assume, strategies as st
 sys.path.append('..')
 import ktane.ask #pylint: disable=wrong-import-position #directory hack
 
-@given(st.text(), st.text())
-def test_yes_no_returns_bool(prompt, answer):
-    "Test that ask.yes_no returns a boolean."
-    with patch("builtins.input", lambda _: answer):
-        returned_answer = ktane.ask.yes_no(prompt)
-        assert isinstance(returned_answer, bool)
-
 @given(st.sets(st.text()), st.booleans(), st.data())
 def test_str_from_set(inputs_set, case_sensitive, data):
     "Test that ask.str_from_set returns strings in the set passed to it."
@@ -47,6 +40,5 @@ def test_list_from_set(inputs_set, case_sensitive, data):
 
 if __name__ == "__main__":
     ktane.ask.ENABLE_PRINTING = False #type: ignore[misc] #disable printing for the test
-    test_yes_no_returns_bool()
     test_str_from_set()
     test_list_from_set()
