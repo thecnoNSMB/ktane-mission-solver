@@ -17,6 +17,12 @@ def test_edgework(edgeflags: List[directors.EdgeFlag], data: st.DataObject) -> N
     with patch('ktane.directors.ask', MockAsk(data)), \
          patch('ktane.directors.talk', mock_talk):
         edgework.post_init()
+    assert isinstance(edgework.hit_strike_limit, bool)
+    assert isinstance(edgework.defused, bool)
+    assert isinstance(edgework.serial_odd, bool)
+    assert isinstance(edgework.serial_vowel, bool)
+    assert isinstance(edgework.serial_first_digit, str)
+    assert isinstance(edgework.serial_first_letter, str)
 
 if __name__ == "__main__":
     test_edgework()
