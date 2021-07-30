@@ -3,9 +3,10 @@
 from typing import Final, Callable, List, AbstractSet
 from hypothesis import strategies as st
 
+#pylint: disable=missing-function-docstring, unused-argument, unused-variable
+
 class MockAsk:
     "Mock of the ktane.ask module."
-    #pylint: disable=missing-function-docstring, unused-argument, unused-variable
     #pylint: disable=line-too-long
     #these constructions just can't with the character limit
 
@@ -67,3 +68,6 @@ class MockAsk:
 
     def positive_int(self) -> int:
         return self._data.draw(st.integers(min_value=1))
+
+def mock_talk(message: str = "", /, *, warning_bypass: bool = False) -> None:
+    "Standalone mock of ktane.ask.talk."
