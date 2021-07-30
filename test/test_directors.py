@@ -4,7 +4,7 @@ import sys
 from unittest.mock import patch
 from typing import List
 from hypothesis import given, strategies as st
-from mocks import MockAsk, mock_talk #type: ignore
+from mocks import MockAsk, mock_talk #type: ignore #mypy can't find mocks for some reason
 
 sys.path.append('..')
 from ktane import directors #pylint: disable=wrong-import-position, wrong-import-order
