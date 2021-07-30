@@ -41,15 +41,15 @@ class MockAsk:
     def list_from_set(self, valid_inputs: AbstractSet[str], *, case_sensitive: bool = False, print_options: bool = False, expected_len: int = 0) -> List[str]:
         if not case_sensitive:
             if expected_len == 0:
-                return self._data.draw(st.lists(st.sampled_from(s.lower() for s in valid_inputs))) #type: ignore[call-overload]
-            return self._data.draw(st.lists(st.sampled_from(s.lower() for s in valid_inputs), min_size=expected_len, max_size=expected_len)) #type: ignore[call-overload]
+                return self._data.draw(st.lists(st.sampled_from([s.lower() for s in valid_inputs])))
+            return self._data.draw(st.lists(st.sampled_from([s.lower() for s in valid_inputs]), min_size=expected_len, max_size=expected_len))
         if expected_len == 0:
-            return self._data.draw(st.lists(st.sampled_from(valid_inputs))) #type: ignore[call-overload]
-        return self._data.draw(st.lists(st.sampled_from(valid_inputs), min_size=expected_len, max_size=expected_len)) #type: ignore[call-overload]
+            return self._data.draw(st.lists(st.sampled_from(list(valid_inputs))))
+        return self._data.draw(st.lists(st.sampled_from(list(valid_inputs)), min_size=expected_len, max_size=expected_len))
 
     def str_from_set(self, valid_inputs: AbstractSet[str], *, case_sensitive: bool = False, print_options: bool = False) -> str:
         if not case_sensitive:
-            return self._data.draw(st.sampled_from(list(s.lower() for s in valid_inputs)))
+            return self._data.draw(st.sampled_from([s.lower() for s in valid_inputs]))
         return self._data.draw(st.sampled_from(list(valid_inputs)))
 
     def list_from_regex(self, input_pattern: str, *, case_sensitive: bool = False, expected_len: int = 0) -> List[str]:
