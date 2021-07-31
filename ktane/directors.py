@@ -65,8 +65,8 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
                   max_strikes: Optional[int] = None,
                   batteries: Optional[int] = None,
                   indicators: Optional[IndicatorList] = None,
-                  serial: Optional[str] = None,
                   port_plates: Optional[PortPlateList] = None,
+                  serial: Optional[str] = None,
                   strikes: Optional[int] = None,
                   solves: Optional[int] = None,
                   ) -> None:
