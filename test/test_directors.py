@@ -4,7 +4,7 @@ import sys
 from unittest.mock import patch
 from typing import List
 from hypothesis import given, strategies as st
-from .mocks import MockAsk, mock_talk
+from mocks import MockAsk, mock_talk
 
 sys.path.append('..')
 from ktane import directors #pylint: disable=wrong-import-position, wrong-import-order
