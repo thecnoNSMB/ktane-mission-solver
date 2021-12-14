@@ -5,7 +5,7 @@ from typing import Any
 from hypothesis import strategies as st
 
 sys.path.append('..')
-from ktane.directors import Edgework, Port #pylint: disable=wrong-import-position
+from ktane.directors import Edgework, Port, EdgeFlag #pylint: disable=wrong-import-position
 
 @st.composite
 def serial_numbers(draw: Any) -> Any: #todo: optimize with st.permutations
@@ -34,6 +34,7 @@ def indicator_lists(draw: Any) -> Any:
 def edgeworks(draw: Any) -> Any:
     "Strategy to generate ktane.directors.Edgework objects."
     new_edgework = Edgework()
+    new_edgework.set_edgeflags(tuple(draw(st.lists(st.sampled_from(EdgeFlag)))))
     new_edgework.post_init(
         start_time_mins=draw(st.integers(min_value=1)),
         total_modules=draw(st.integers()),
