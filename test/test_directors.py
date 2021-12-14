@@ -3,13 +3,14 @@
 import sys
 from unittest.mock import patch
 from typing import List
-from hypothesis import given, strategies as st
+from hypothesis import given, settings, HealthCheck, strategies as st
 from mocks import MockAsk, mock_talk
 
 sys.path.append('..')
 from ktane import directors #pylint: disable=wrong-import-position, wrong-import-order
 
 @given(st.lists(st.sampled_from(directors.EdgeFlag)), st.data())
+@settings(suppress_health_check=(HealthCheck.filter_too_much,))
 def test_edgework(edgeflags: List[directors.EdgeFlag], data: st.DataObject) -> None:
     "Test that ktane.edgework does not break under proper initialization."
     edgework = directors.Edgework()
