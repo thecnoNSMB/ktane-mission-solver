@@ -5,21 +5,24 @@ from typing import Any
 from hypothesis import strategies as st
 
 sys.path.append('..')
-from ktane.directors import Edgework, Port, EdgeFlag #pylint: disable=wrong-import-position
+from ktane.directors import Edgework, Port, EdgeFlag  # noqa: E402
+
 
 @st.composite
-def serial_numbers(draw: Any) -> Any: #todo: optimize with st.permutations
+def serial_numbers(draw: Any) -> Any:  # todo: optimize with st.permutations
     "Strategy to generate valid serial numbers."
     return draw(st.text(
         alphabet=st.characters(whitelist_categories=('Ll', 'Nd')),
         min_size=6, max_size=6
     ).filter(lambda s: not (s.isalpha() or s.isdigit())))
 
+
 @st.composite
 def port_plate_lists(draw: Any) -> Any:
     "Strategy to generate tuples matching ktane.directors.PortPlateList."
     port_list = draw(st.lists(st.lists(st.sampled_from(Port))))
-    return tuple(tuple(l) for l in port_list)
+    return tuple(tuple(plate) for plate in port_list)
+
 
 @st.composite
 def indicator_lists(draw: Any) -> Any:
@@ -29,6 +32,7 @@ def indicator_lists(draw: Any) -> Any:
         st.booleans()
     )))
     return tuple(ind_list)
+
 
 @st.composite
 def edgeworks(draw: Any) -> Any:

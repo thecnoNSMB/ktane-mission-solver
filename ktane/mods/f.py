@@ -10,6 +10,7 @@ __all__ = [
     "FollowTheLeader",
 ]
 
+
 class FollowTheLeader(ModuleSolver):
     "Solver for Follow the Leader."
     name: Final = "Follow the Leader"
@@ -40,7 +41,7 @@ class FollowTheLeader(ModuleSolver):
             return
         self.wire_loop(wire_plugs, wire_colors, start_index)
 
-    def wire_loop(self, wire_plugs: List[str],  #pylint: disable=too-many-branches
+    def wire_loop(self, wire_plugs: List[str],
                   wire_colors: List[str], start_index: int) -> None:
         "Given a starting index, determine which wires in the loop to cut."
         rules_reverse_order = wire_colors[start_index] in ('red', 'green', 'white')
@@ -71,7 +72,7 @@ class FollowTheLeader(ModuleSolver):
                   and len({wire_colors[i] for i
                            in range(prev_index, prev_index-3, -1)}) < 3):
                 prev_cut = True
-            elif (current_rule == 5 #!= is equivalent to xor in this context
+            elif (current_rule == 5  # != is equivalent to xor in this context
                   and ((wire_colors[prev_index] == wire_colors[current_index])
                        != (wire_colors[prev_index-1] == wire_colors[current_index]))):
                 prev_cut = True

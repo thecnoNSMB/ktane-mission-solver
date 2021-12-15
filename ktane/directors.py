@@ -14,7 +14,6 @@ IndicatorList = Tuple[Tuple[str, bool], ...]
 PortPlate = Tuple['Port', ...]
 PortPlateList = Tuple[PortPlate, ...]
 
-#resolve conflicts where mypy and pylint both report the same issue, as needed
 
 class Port(Enum):
     "Ports for edgework information."
@@ -25,6 +24,7 @@ class Port(Enum):
     SERIAL = auto()
     RCA = auto()
 
+
 class EdgeFlag(Flag):
     "Bitwise flags for edgework requirements."
     NONE = 0
@@ -34,11 +34,12 @@ class EdgeFlag(Flag):
     INDICATORS = auto()
     SERIAL = auto()
     PORTS = auto()
-    TOTAL_MODULES = auto() #dummy flag for solvers, will always be initialized
-    STRIKES = auto() #dummy flag for solvers, will always be initialized
-    SOLVES = auto() #dummy flag for solvers, will always be initialized
+    TOTAL_MODULES = auto()  # dummy flag for solvers, will always be initialized
+    STRIKES = auto()  # dummy flag for solvers, will always be initialized
+    SOLVES = auto()  # dummy flag for solvers, will always be initialized
 
-class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
+
+class Edgework:
     "Data object containing edgework information and bomb metadata."
 
     def __init__(self) -> None:
@@ -59,7 +60,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         for flag in flags:
             self._required_edgework_flag |= flag
 
-    def post_init(self, *, #pylint: disable=too-many-arguments #can't help it
+    def post_init(self, *,
                   start_time_mins: Optional[int] = None,
                   total_modules: Optional[int] = None,
                   max_strikes: Optional[int] = None,
@@ -81,7 +82,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         self._get_strikes(strikes)
         self._get_solves(solves)
 
-    #region private helper methods
+    # region private helper methods
 
     _port_names: Final = {"dvid", "parallel", "ps2", "rj45", "serial", "rca"}
     _port_name_to_enum: Final = {
@@ -123,7 +124,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
                                                          case_sensitive=True)
                 self.indicators = tuple((ind.lower(), ind.isupper())
                                         for ind in indicator_list_raw)
-            #otherwise, the default is no indicators and will do
+            # otherwise, the default is no indicators and will do
 
     def _get_serial(self, serial: Optional[str]) -> None:
         if serial is not None and self._serial_valid(serial):
@@ -151,7 +152,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
                     plate_list.append(tuple(self._port_name_to_enum[port]
                                             for port in plate))
                 self.port_plates = tuple(plate_list)
-            #otherwise, the default is no plates and will do
+            # otherwise, the default is no plates and will do
 
     def _get_total_modules(self, total_modules: Optional[int]) -> None:
         if total_modules is not None:
@@ -175,7 +176,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
                 solves = self.total_modules
             self.solves = solves
 
-    #endregion
+    # endregion
 
     def add_strike(self) -> None:
         "Add a strike, and quit if we hit the strike limit."
@@ -205,7 +206,7 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         "Whether or not the last digit of the serial number is odd."
         if self.serial:
             return bool([int(c) for c in self.serial if c.isdigit()][-1] % 2)
-        return False #undefined behavior
+        return False  # undefined behavior
 
     @property
     def serial_vowel(self) -> bool:
@@ -219,14 +220,14 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         "The first numeric digit of the serial number."
         if self.serial:
             return [c for c in self.serial if c.isdigit()][0]
-        return '' #undefined behavior
+        return ''  # undefined behavior
 
     @property
     def serial_first_letter(self) -> str:
         "The first alphabetic character of the serial number."
         if self.serial:
             return [c for c in self.serial if c.isalpha()][0]
-        return '' #undefined behavior
+        return ''  # undefined behavior
 
     def has_indicator(self, indicator: str, lit: bool) -> bool:
         "Whether or not the bomb has the given indicator."
@@ -236,12 +237,13 @@ class Edgework: #pylint: disable=too-many-instance-attributes #can't help it
         "Whether or not the bomb has the given port."
         return any(port in plate for plate in self.port_plates)
 
+
 class ModuleSolver(ABC):
     "Prototype class for regular module solvers."
-    bomb: Edgework #Should be assigned directly by managing BombSolver
-    bomb_solver: 'BombSolver' #Same as above
+    bomb: Edgework  # Should be assigned directly by managing BombSolver
+    bomb_solver: 'BombSolver'  # Same as above
 
-    #The following may be defined statically by subclasses as needed:
+    # The following may be defined statically by subclasses as needed:
     total_stages: int = 1
     reset_stages_on_strike: bool = False
 
@@ -252,7 +254,7 @@ class ModuleSolver(ABC):
 
     @property
     @abstractmethod
-    def id(self) -> str: #pylint: disable=invalid-name #too short to clear the regex
+    def id(self) -> str:
         "The mod ID of the module, for internal use."
 
     @property
@@ -271,7 +273,7 @@ class ModuleSolver(ABC):
     def stage(self) -> None:
         "Solve a single stage (the entire module if unstaged)."
 
-    #region: default handling
+    # region: default handling
 
     def __init__(self, count: int = 1):
         self.total_count: Final[int] = count
@@ -312,7 +314,7 @@ class ModuleSolver(ABC):
             self.stage()
             self.check_strike()
         if not self.check_solve():
-            self.reset_stages() #undefined behavior
+            self.reset_stages()  # undefined behavior
 
     def check_strike(self) -> None:
         "Ask whether a strike occurred, and handle it if so."
@@ -347,19 +349,20 @@ class ModuleSolver(ABC):
         "Adjust the solve queue, if needed."
         return queue
 
-    #endregion
+    # endregion
 
     @property
     def all_solved(self) -> bool:
         "Whether all modules of this type are solved."
         return self.solved_count >= self.total_count
 
+
 class BombSolver:
     """Object that handles bomb-scale tasks, like boss modules, strike and
     solve handling, and the solve queue. Does not contain any solvers."""
     edgework: Edgework
-    queue: Deque[ModuleSolver] #for now this must contain every module
-    #eventually it will be split into one for regular modules and one for bosses
+    queue: Deque[ModuleSolver]  # for now this must contain every module
+    # eventually it will be split into one for regular modules and one for bosses
 
     def __init__(self, *queue: ModuleSolver):
         self.queue = deque(queue)
@@ -397,8 +400,8 @@ class BombSolver:
         to ensure that the solve queue is in an acceptable state."""
         new_queue = self.queue.copy()
         for solver in self.queue:
-            new_queue = solver.resort_queue(new_queue.copy()) #just in case
-        self.queue = new_queue.copy() #just in case!!!
+            new_queue = solver.resort_queue(new_queue.copy())  # just in case
+        self.queue = new_queue.copy()  # just in case!!!
 
     def solve(self, *, start_time_mins: Optional[int] = None,
               max_strikes: Optional[int] = None) -> None:
@@ -417,6 +420,7 @@ class BombSolver:
         else:
             raise RuntimeError("Queue empty but bomb not defused.")
 
+
 def from_pool(*modules: Type[ModuleSolver], count: int = 1,
               print_options: bool = True) -> List[ModuleSolver]:
     """Ask the user which of the modules in the pool is present on the bomb,
@@ -432,7 +436,7 @@ def from_pool(*modules: Type[ModuleSolver], count: int = 1,
     final_modules = []
     for module_name in set(modules_present):
         for module in modules:
-            if str(module.name).lower() == module_name: #module.name will be lowercase
+            if str(module.name).lower() == module_name:  # module.name will be lowercase
                 final_modules.append(module(modules_present.count(module_name)))
                 break
     return final_modules

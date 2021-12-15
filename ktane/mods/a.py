@@ -10,6 +10,7 @@ __all__ = [
     "Anagrams",
 ]
 
+
 class Anagrams(ModuleSolver):
     "Solver for Anagrams."
     name: Final = "Anagrams"

@@ -47,15 +47,18 @@ MORSE_ALPHABET: Final = {
 
 INVERSE_MORSE_ALPHABET: Final = {v: k for k, v in MORSE_ALPHABET.items()}
 
+
 def valid_morse(text: str) -> bool:
     "Determine whether a string is valid Morse code."
     chars = text.split()
     return all(c in INVERSE_MORSE_ALPHABET for c in chars)
 
+
 def decode(code: str) -> str:
     "Convert a Morse code string into regular text."
     chars = code.split()
     return "".join(INVERSE_MORSE_ALPHABET[char] for char in chars)
+
 
 def ask_word() -> str:
     "Get a Morse code string from the user and convert it to a word."

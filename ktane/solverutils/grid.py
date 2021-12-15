@@ -8,15 +8,18 @@ from ktane import ask
 
 __all__ = ["Dimensions", "Coord", "ask_coord"]
 
+
 class Dimensions(NamedTuple):
     "Size of a 2D square grid."
     rows: int
     cols: int
 
+
 class Coord(NamedTuple):
     "A 0-indexed coordinate on a 2D square grid."
     row: int
     col: int
+
 
 def ask_coord(*, alpha: bool = True) -> Coord:
     """Get a coordinate point from the user. If alpha is set (the default), the

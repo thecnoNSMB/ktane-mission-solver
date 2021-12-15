@@ -10,6 +10,7 @@ __all__ = [
     "WordScramble",
 ]
 
+
 class WordScramble(ModuleSolver):
     "Solver for Word Scramble."
     name: Final = "Word Scramble"

@@ -11,6 +11,7 @@ __all__ = [
     "CrazyTalk",
 ]
 
+
 class ColourFlash(ModuleSolver):
     "Solver for Colour Flash."
     name: Final = "Colour Flash"
@@ -19,7 +20,7 @@ class ColourFlash(ModuleSolver):
 
     valid_colors: Final = {"red", "yellow", "green", "blue", "magenta", "white"}
 
-    def stage(self) -> None: #pylint: disable=too-many-branches #can't help it
+    def stage(self) -> None:
         talk("What color is the last word in the sequence?")
         last_color = ask.str_from_set(self.valid_colors)
         if last_color == "red":
@@ -62,7 +63,7 @@ class ColourFlash(ModuleSolver):
             else:
                 talk("Note the text of the seventh word.")
                 talk("Press No on the first word with that color.")
-        else: #white
+        else:  # white
             if ask.yes_no("Does the third word's color match"
                           " the fourth or fifth words' text?"):
                 talk("Press No on the first word whose color or text is blue.")
@@ -70,6 +71,7 @@ class ColourFlash(ModuleSolver):
                 talk("Press Yes on the last word colored blue.")
             else:
                 talk("Press No at any time.")
+
 
 class CrazyTalk(ModuleSolver):
     "Solver for Crazy Talk."

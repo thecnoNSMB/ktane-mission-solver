@@ -6,7 +6,7 @@ from ktane.directors import ModuleSolver, EdgeFlag, Port
 from ktane.ask import talk
 from ktane import ask
 
-from ktane.solverutils import morse, maze, grid #MorseCode, Maze
+from ktane.solverutils import morse, maze, grid  # MorseCode, Maze
 
 __all__ = [
     "Wires",
@@ -22,13 +22,14 @@ __all__ = [
     "Password"
 ]
 
+
 class Wires(ModuleSolver):
     "Solver for vanilla Wires."
     name: Final = "Wires"
     id: Final = "Wires"
     required_edgework: Final = (EdgeFlag.SERIAL,)
 
-    def stage(self) -> None: #pylint: disable=too-many-branches #can't help it
+    def stage(self) -> None:
         talk("What color wires are on the module, from top to bottom?")
         talk("Type R for red, Y for yellow, B for blue, W for white, and K for black.")
         wirelist = ask.str_from_regex(r"[rybwk]{3,6}").lower()
@@ -72,6 +73,7 @@ class Wires(ModuleSolver):
             else:
                 wire = "fourth"
         talk(f"Cut the {wire} wire.")
+
 
 class TheButton(ModuleSolver):
     "Solver for vanilla The Button."
@@ -118,6 +120,7 @@ class TheButton(ModuleSolver):
         talk(f"Release the button when the countdown timer has a {digit} "
              "in any position.")
 
+
 class Keypad(ModuleSolver):
     "Solver for vanilla Keypad."
     name: Final = "Keypad"
@@ -161,12 +164,13 @@ class Keypad(ModuleSolver):
                 for symbol in [sym for sym in col if sym in symbols]:
                     talk(symbol.upper())
 
+
 class SimonSays(ModuleSolver):
     "Solver for vanilla Simon Says."
     name: Final = "Simon Says"
     id: Final = "Simon"
     required_edgework: Final = (EdgeFlag.SERIAL, EdgeFlag.STRIKES)
-    total_stages = 5 #max number of stages
+    total_stages = 5  # max number of stages
 
     valid_colors: Final = {"red", "blue", "green", "yellow"}
     color_sequence: List[str]
@@ -182,23 +186,23 @@ class SimonSays(ModuleSolver):
         if self.bomb.serial_vowel:
             if self.bomb.strikes == 0:
                 simon_key = {"red": "Blue", "blue": "Red",
-                             "green": "Yellow", "yellow": "Green",}
+                             "green": "Yellow", "yellow": "Green"}
             elif self.bomb.strikes == 1:
                 simon_key = {"red": "Yellow", "blue": "Green",
-                             "green": "Blue", "yellow": "Red",}
+                             "green": "Blue", "yellow": "Red"}
             else:
                 simon_key = {"red": "Green", "blue": "Red",
-                             "green": "Yellow", "yellow": "Blue",}
+                             "green": "Yellow", "yellow": "Blue"}
         else:
             if self.bomb.strikes == 0:
                 simon_key = {"red": "Blue", "blue": "Yellow",
-                             "green": "Green", "yellow": "Red",}
+                             "green": "Green", "yellow": "Red"}
             elif self.bomb.strikes == 1:
                 simon_key = {"red": "Red", "blue": "Blue",
-                             "green": "Yellow", "yellow": "Green",}
+                             "green": "Yellow", "yellow": "Green"}
             else:
                 simon_key = {"red": "Yellow", "blue": "Green",
-                             "green": "Blue", "yellow": "Red",}
+                             "green": "Blue", "yellow": "Red"}
         talk("Press the following colors in order:")
         for color in self.color_sequence:
             talk(simon_key[color])
@@ -222,6 +226,7 @@ class SimonSays(ModuleSolver):
     def on_this_struck(self) -> None:
         super().on_this_struck()
         self.color_sequence.pop()
+
 
 class WhosOnFirst(ModuleSolver):
     "Solver for vanilla Who's On First."
@@ -247,7 +252,7 @@ class WhosOnFirst(ModuleSolver):
         "okay": 1,
         "says": 5,
         "nothing": 2,
-        "empty": 4, #no text on display
+        "empty": 4,  # no text on display
         "blank": 3,
         "no": 5,
         "led": 2,
@@ -328,9 +333,11 @@ class WhosOnFirst(ModuleSolver):
                 break
         talk(f"Press the button labeled {answer_label.upper()}.")
 
+
 class _MemoryItem(NamedTuple):
     label: str
     position: int
+
 
 class Memory(ModuleSolver):
     "Solver for vanilla Memory."
@@ -366,12 +373,12 @@ class Memory(ModuleSolver):
             item = self._stage_3(display, buttons)
         elif self.current_stage == 4:
             item = self._stage_4(display, buttons)
-        else: #self.current_stage == 5
+        else:  # self.current_stage == 5
             item = self._stage_5(display, buttons)
         talk(f"Press the button labeled {item.label}.")
         self.presses.append(item)
 
-    #region stage helpers
+    # region stage helpers
 
     def _in_position(self, position: int, buttons: str) -> _MemoryItem:
         return _MemoryItem(buttons[position-1], position)
@@ -384,7 +391,7 @@ class Memory(ModuleSolver):
             return self._in_position(2, buttons)
         if display == 3:
             return self._in_position(3, buttons)
-        #display == 4
+        # display == 4
         return self._in_position(4, buttons)
 
     def _stage_2(self, display: int, buttons: str) -> _MemoryItem:
@@ -392,7 +399,7 @@ class Memory(ModuleSolver):
             return self._with_label('4', buttons)
         if display in {2, 4}:
             return self._in_position(self.presses[0].position, buttons)
-        #display == 3
+        # display == 3
         return self._in_position(1, buttons)
 
     def _stage_3(self, display: int, buttons: str) -> _MemoryItem:
@@ -402,7 +409,7 @@ class Memory(ModuleSolver):
             return self._with_label(self.presses[0].label, buttons)
         if display == 3:
             return self._in_position(3, buttons)
-        #display == 4
+        # display == 4
         return self._with_label('4', buttons)
 
     def _stage_4(self, display: int, buttons: str) -> _MemoryItem:
@@ -420,10 +427,11 @@ class Memory(ModuleSolver):
             return self._with_label(self.presses[1].label, buttons)
         if display == 3:
             return self._with_label(self.presses[3].label, buttons)
-        #display == 4
+        # display == 4
         return self._with_label(self.presses[2].label, buttons)
 
-    #endregion
+    # endregion
+
 
 class MorseCode(ModuleSolver):
     "Solver for vanilla Morse Code."
@@ -459,6 +467,7 @@ class MorseCode(ModuleSolver):
             word = morse.ask_word()
         talk(f"Respond at frequency 3.{self.word_to_freq[word]} MHz.")
 
+
 class ComplicatedWires(ModuleSolver):
     "Solver for vanilla Complicated Wires."
     name: Final = "Complicated Wires"
@@ -466,21 +475,21 @@ class ComplicatedWires(ModuleSolver):
     required_edgework: Final = (EdgeFlag.SERIAL, EdgeFlag.PORTS, EdgeFlag.BATTERIES)
 
     venn_diagram: Final = (
-        #no red
+        # no red
         (
-            #no blue
+            # no blue
             #  none    L        S     SL
             ((('C'), ('D')), (('C'), ('B'))),
-            #blue
+            # blue
             #  none    L        S     SL
             ((('S'), ('P')), (('D'), ('P'))),
         ),
-        #red
+        # red
         (
-            #no blue
+            # no blue
             #  none    L        S     SL
             ((('S'), ('B')), (('C'), ('B'))),
-            #blue
+            # blue
             #  none    L        S     SL
             ((('S'), ('S')), (('P'), ('D'))),
         )
@@ -513,9 +522,11 @@ class ComplicatedWires(ModuleSolver):
             return self.bomb.batteries >= 2
         raise RuntimeError("Invalid Venn Diagram action letter")
 
+
 class _SequenceWire(NamedTuple):
     color: str
     label: str
+
 
 class WireSequence(ModuleSolver):
     "Solver for vanilla Wire Sequence."
@@ -564,7 +575,7 @@ class WireSequence(ModuleSolver):
         return converted_wirelist
 
     def stage(self) -> None:
-        #canonize last_stage_counts before starting new stage
+        # canonize last_stage_counts before starting new stage
         self.wire_counts.update(self.last_stage_counts)
         self.last_stage_counts.clear()
         wires = self.ask_wires()
@@ -578,6 +589,7 @@ class WireSequence(ModuleSolver):
                 talk(f"Do not cut the {wire.color} wire "
                      f"connected to label {wire.label.upper()}.")
         talk("Press the down arrow to finish this panel.")
+
 
 class Maze(ModuleSolver):
     "Solver for vanilla Maze."
@@ -695,6 +707,7 @@ class Maze(ModuleSolver):
                 talk(direction)
             return
 
+
 class Password(ModuleSolver):
     "Solver for vanilla Password."
     name: Final = "Password"
@@ -714,17 +727,17 @@ class Password(ModuleSolver):
             for column_index in range(5):
                 talk(f"What letters are in column {column_index + 1}?")
                 letters = ask.str_from_regex(r"[a-z]{6}")
-                while len(set(letters)) != 6: #all letters should be unique
+                while len(set(letters)) != 6:  # all letters should be unique
                     talk("There should be 6 unique letters in the column.")
                     talk(f"What letters are in column {column_index + 1}?")
                     letters = ask.str_from_regex(r"[a-z]{6}")
                 possible_words = [word for word in possible_words
-                                  if word[column_index] in letters] #filter
+                                  if word[column_index] in letters]  # filter
                 if len(possible_words) == 1:
                     answer = possible_words[0].upper()
                     talk(f'Enter the password "{answer}".')
                     return
                 if len(possible_words) == 0:
                     break
-            #no valid word or multiple valid words
+            # no valid word or multiple valid words
             talk("Something went wrong. Let's start over.")
