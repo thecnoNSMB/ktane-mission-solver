@@ -17,4 +17,6 @@ Use the right standard library tools for the job.
 
 Require as few external dependencies as possible; ideally none.
 
+However, external dependencies are acceptable for linting and testing.
+
 Phrase inputs as questions, with commands limited to formatting.
