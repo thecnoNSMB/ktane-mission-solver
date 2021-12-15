@@ -6,7 +6,7 @@ from typing import List
 from hypothesis import given, settings, HealthCheck, strategies as st
 from mocks import MockAsk, mock_talk
 
-sys.path.append('..')
+sys.path.append('..') #todo: don't?
 from ktane import directors #pylint: disable=wrong-import-position, wrong-import-order
 
 @given(st.lists(st.sampled_from(directors.EdgeFlag)), st.data())

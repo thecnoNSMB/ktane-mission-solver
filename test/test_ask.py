@@ -5,8 +5,8 @@ from typing import Set
 from unittest.mock import patch
 from hypothesis import given, assume, strategies as st
 
-sys.path.append('..')
-from ktane import ask #pylint: disable=wrong-import-position #directory hack
+sys.path.append('..') #todo: don't?
+from ktane import ask #pylint: disable=wrong-import-position
 
 @given(st.sets(st.text()), st.booleans(), st.booleans(), st.data())
 def test_str_from_set(inputs_set: Set[str], case_sensitive: bool, print_options: bool,
