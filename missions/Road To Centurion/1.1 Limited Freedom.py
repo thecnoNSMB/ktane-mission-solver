@@ -1,6 +1,6 @@
 from ktane.directors import BombSolver, from_pool
 from ktane.module_pools import ALL_VANILLA
-from ktane.mods.t import TurnTheKeys
+from ktane.mods.t_mods import TurnTheKeys
 
 BombSolver(
     TurnTheKeys(),

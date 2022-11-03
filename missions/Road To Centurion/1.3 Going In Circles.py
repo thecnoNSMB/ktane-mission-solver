@@ -1,5 +1,5 @@
 from ktane.directors import BombSolver, from_pool
-from ktane.mods.f import FollowTheLeader
+from ktane.mods.f_mods import FollowTheLeader
 from ktane.vanilla import Wires, ComplicatedWires, WireSequence
 
 BombSolver(

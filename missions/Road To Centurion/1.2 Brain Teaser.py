@@ -1,5 +1,5 @@
 from ktane.directors import BombSolver, from_pool
-from ktane.mods.c import ColourFlash
+from ktane.mods.c_mods import ColourFlash
 from ktane.vanilla import (ComplicatedWires, Memory, WhosOnFirst, WireSequence,
                            Password, Wires, TheButton, Keypad)
 
