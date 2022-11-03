@@ -5,7 +5,7 @@ from typing import Set
 from unittest.mock import patch
 from hypothesis import given, assume, strategies as st
 
-sys.path.append('..')  # todo: don't?
+sys.path.append('..')  # TODO: don't?
 from ktane import ask  # noqa: E402
 
 

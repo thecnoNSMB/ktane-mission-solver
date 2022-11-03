@@ -9,7 +9,7 @@ from ktane.directors import Edgework, Port, EdgeFlag  # noqa: E402
 
 
 @st.composite
-def serial_numbers(draw: Any) -> Any:  # todo: optimize with st.permutations
+def serial_numbers(draw: Any) -> Any:  # TODO: optimize with st.permutations
     "Strategy to generate valid serial numbers."
     return draw(st.text(
         alphabet=st.characters(whitelist_categories=('Ll', 'Nd')),

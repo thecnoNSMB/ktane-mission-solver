@@ -6,7 +6,7 @@ from typing import List
 from hypothesis import given, settings, HealthCheck, strategies as st
 from mocks import MockAsk, mock_talk
 
-sys.path.append('..')  # todo: don't?
+sys.path.append('..')  # TODO: don't?
 from ktane import directors  # noqa: E402
 
 
