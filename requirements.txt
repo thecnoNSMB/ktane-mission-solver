@@ -5,3 +5,4 @@ hypothesis==6.31.6
 mypy==0.910
 wemake-python-styleguide==0.16.0
 # also remove WPS-installed flake8-debugger, flake8-rst-docstrings, darglint
+# oh also this is literally just for dev the actual project has no requirements
