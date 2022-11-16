@@ -1,12 +1,13 @@
-"Utilities for asking for and processing Morse Code signals."
+"""Utilities for asking for and processing Morse Code signals."""
 
+from types import MappingProxyType
 from typing import Final
 
 from ktane import ask
 
 __all__ = ["valid_morse", "decode", "ask_word"]
 
-MORSE_ALPHABET: Final = {
+MORSE_ALPHABET: Final = MappingProxyType({
     "a": ".-",
     "b": "-...",
     "c": "-.-.",
@@ -42,25 +43,27 @@ MORSE_ALPHABET: Final = {
     "6": "-....",
     "7": "--...",
     "8": "---..",
-    "9": "----."
-}
+    "9": "----.",
+})
 
-INVERSE_MORSE_ALPHABET: Final = {v: k for k, v in MORSE_ALPHABET.items()}
+INVERSE_MORSE_ALPHABET: Final = MappingProxyType({
+    morse: char for char, morse in MORSE_ALPHABET.items()
+})
 
 
 def valid_morse(text: str) -> bool:
-    "Determine whether a string is valid Morse code."
+    """Determine whether a string is valid Morse code."""
     chars = text.split()
-    return all(c in INVERSE_MORSE_ALPHABET for c in chars)
+    return all(char in INVERSE_MORSE_ALPHABET for char in chars)
 
 
 def decode(code: str) -> str:
-    "Convert a Morse code string into regular text."
+    """Convert a Morse code string into regular text."""
     chars = code.split()
     return "".join(INVERSE_MORSE_ALPHABET[char] for char in chars)
 
 
 def ask_word() -> str:
-    "Get a Morse code string from the user and convert it to a word."
+    """Get a Morse code string from the user and convert it to a word."""
     code = ask.str_from_func(valid_morse)
     return decode(code)

@@ -1,11 +1,10 @@
-from ktane.directors import BombSolver, from_pool
+from ktane.directors import BombSolver, modules_from_pool
 from ktane.mods.c_mods import ColourFlash
-from ktane.vanilla import (ComplicatedWires, Memory, WhosOnFirst, WireSequence,
-                           Password, Wires, TheButton, Keypad)
+from ktane.vanilla import *
 
 BombSolver(
     ColourFlash(),
     ComplicatedWires(),
-    *from_pool(Memory, WhosOnFirst, WireSequence),
-    *from_pool(Password, Wires, TheButton, Keypad)
+    *modules_from_pool(Memory, WhosOnFirst, WireSequence),
+    *modules_from_pool(Password, Wires, TheButton, Keypad),
 ).solve()

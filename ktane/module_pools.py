@@ -1,8 +1,8 @@
-"Contains some useful default pools for mission solvers."
+"""Contains some useful default pools for mission solvers."""
 
 from typing import Final
 
-from ktane import vanilla, mods
+from ktane import mods, vanilla
 
 ALL_VANILLA: Final = (
     vanilla.Wires,
@@ -19,12 +19,12 @@ ALL_VANILLA: Final = (
 )
 
 ALL_MODS: Final = (
-    mods.a.Anagrams,
-    mods.c.ColourFlash,
-    mods.c.CrazyTalk,
-    mods.f.FollowTheLeader,
-    mods.t.TurnTheKeys,
-    mods.w.WordScramble,
+    mods.a_mods.Anagrams,
+    mods.c_mods.ColourFlash,
+    mods.c_mods.CrazyTalk,
+    mods.f_mods.FollowTheLeader,
+    mods.t_mods.TurnTheKeys,
+    mods.w_mods.WordScramble,
 )
 
 ALL_SOLVABLE: Final = ALL_VANILLA + ALL_MODS

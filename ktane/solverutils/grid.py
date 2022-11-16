@@ -1,29 +1,36 @@
-"Utilities relating to grids, grid sizes, and grid coordinates."
+"""Utilities relating to grids, grid sizes, and grid coordinates."""
 
 from string import ascii_lowercase
 from typing import NamedTuple
 
-from ktane.ask import talk
 from ktane import ask
+
+talk = ask.talk
 
 __all__ = ["Dimensions", "Coord", "ask_coord"]
 
 
 class Dimensions(NamedTuple):
-    "Size of a 2D square grid."
+    """Size of a 2D square grid."""
+
     rows: int
     cols: int
 
 
 class Coord(NamedTuple):
-    "A 0-indexed coordinate on a 2D square grid."
+    """A 0-indexed coordinate on a 2D square grid."""
+
     row: int
     col: int
 
 
 def ask_coord(*, alpha: bool = True) -> Coord:
-    """Get a coordinate point from the user. If alpha is set (the default), the
-    expected form is like "A5", otherwise, row and column are asked separately."""
+    """
+    Get a coordinate point from the user.
+
+    If alpha is set (the default), the expected form is like "A5",
+    otherwise, row and column are asked separately.
+    """
     col: int
     row: int
     if alpha:
@@ -37,4 +44,4 @@ def ask_coord(*, alpha: bool = True) -> Coord:
         row = ask.positive_int()
         talk("Column number:")
         col = ask.positive_int()
-    return Coord(row-1, col-1)
+    return Coord(row - 1, col - 1)

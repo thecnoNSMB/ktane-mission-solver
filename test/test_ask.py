@@ -1,22 +1,31 @@
-"Basic Hypothesis test suite for ktane.ask."
+"""Basic Hypothesis test suite for ktane.ask."""
 
+import string
 import sys
 from typing import Set
 from unittest.mock import patch
-from hypothesis import given, assume, strategies as st
 
-sys.path.append('..')  # TODO: don't?
+from hypothesis import assume, given
+from hypothesis import strategies as st
+
+sys.path.append("..")  # TODO: don't?
 from ktane import ask  # noqa: E402
 
 
 @given(st.sets(st.text()), st.booleans(), st.booleans(), st.data())
-def test_str_from_set(inputs_set: Set[str], case_sensitive: bool, print_options: bool,
-                      data: st.DataObject) -> None:
-    "Test that ask.str_from_set returns strings in the set passed to it."
+def test_str_from_set(
+    inputs_set: Set[str],
+    case_sensitive: bool,
+    print_options: bool,
+    data_obj: st.DataObject,
+) -> None:
+    """Test that ask.str_from_set returns strings in the set passed to it."""
     try:
-        with patch("builtins.input", lambda _: data.draw(st.text())):
-            return_string = ask.str_from_set(inputs_set, case_sensitive=case_sensitive,
-                                             print_options=print_options)
+        with patch("builtins.input", lambda _: data_obj.draw(st.text())):
+            return_string = ask.str_from_set(
+                inputs_set, case_sensitive=case_sensitive, print_options=print_options,
+            )
+            # TODO: breaks when case-insensitive
             assert return_string in inputs_set
     except RuntimeError as message:
         # expected failure if too many inputs fail
@@ -27,16 +36,26 @@ def test_str_from_set(inputs_set: Set[str], case_sensitive: bool, print_options:
 
 
 @given(st.sets(st.text()), st.booleans(), st.booleans(), st.integers(), st.data())
-def test_list_from_set(inputs_set: Set[str], case_sensitive: bool, print_options: bool,
-                       expected_len: int, data: st.DataObject) -> None:
-    """Test that ask.list_from_set returns lists
-    containing only strings in the set passed to it."""
+def test_list_from_set(
+    inputs_set: Set[str],
+    case_sensitive: bool,
+    print_options: bool,
+    expected_len: int,
+    data_obj: st.DataObject,
+) -> None:
+    """
+    Test that ask.list_from_set returns lists
+    containing only strings in the set passed to it.
+    """
     try:
-        with patch("builtins.input", lambda _: data.draw(st.text())):
-            return_list = ask.list_from_set(inputs_set, case_sensitive=case_sensitive,
-                                            print_options=print_options,
-                                            expected_len=expected_len)
-            assert all(s in inputs_set for s in return_list)
+        with patch("builtins.input", lambda _: data_obj.draw(st.text())):
+            return_list = ask.list_from_set(
+                inputs_set,
+                case_sensitive=case_sensitive,
+                print_options=print_options,
+                expected_len=expected_len,
+            )
+            assert all(string in inputs_set for string in return_list)
     except RuntimeError as message:
         # expected failure if too many inputs fail
         if str(message) == "Too many invalid user inputs.":
@@ -46,10 +65,12 @@ def test_list_from_set(inputs_set: Set[str], case_sensitive: bool, print_options
 
 
 @given(st.data())
-def test_positive_int(data: st.DataObject) -> None:
-    "Test that ask.positive_int actually returns positive nonzero integers."
+def test_positive_int(data_obj: st.DataObject) -> None:
+    """Test that ask.positive_int actually returns positive nonzero integers."""
     try:
-        with patch("builtins.input", lambda _: data.draw(st.sampled_from('0123456789'))):
+        with patch(
+            "builtins.input", lambda _: data_obj.draw(st.sampled_from(string.digits)),
+        ):
             return_int = ask.positive_int()
             assert return_int > 0
     except RuntimeError as message:
