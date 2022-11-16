@@ -1,11 +1,11 @@
-from ktane.directors import BombSolver, from_pool
+from ktane.directors import BombSolver, modules_from_pool
 from ktane.mods.f_mods import FollowTheLeader
-from ktane.vanilla import Wires, ComplicatedWires, WireSequence
+from ktane.vanilla import ComplicatedWires, Wires, WireSequence
 
 BombSolver(
     Wires(),
     ComplicatedWires(),
     WireSequence(),
     FollowTheLeader(),
-    *from_pool(Wires, ComplicatedWires)
+    *modules_from_pool(Wires, ComplicatedWires),
 ).solve()

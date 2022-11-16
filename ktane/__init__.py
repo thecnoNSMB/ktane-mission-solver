@@ -1,7 +1,7 @@
-"A bomb-solving toolkit for the video game Keep Talking and Nobody Explodes."
+"""A bomb-solving toolkit for the video game Keep Talking and Nobody Explodes."""
 
-from ktane.directors import EdgeFlag, Edgework, BombSolver, ModuleSolver
-from ktane import vanilla, ask, solverutils
+from ktane import ask, solverutils, vanilla
+from ktane.directors import BombSolver, EdgeFlag, Edgework, ModuleSolver
 
 __all__ = [
     "EdgeFlag",
@@ -10,5 +10,5 @@ __all__ = [
     "ModuleSolver",
     "vanilla",
     "ask",
-    "solverutils"
+    "solverutils",
 ]
