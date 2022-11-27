@@ -140,3 +140,4 @@ cython_debug/
 
 # End of template, other ignores
 .vscode/
+reformat progress.txt
