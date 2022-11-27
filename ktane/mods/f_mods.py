@@ -60,11 +60,12 @@ class FollowTheLeader(ModuleSolver):
         prev_index = current_index
         prev_color = wire_colors[prev_index]
         current_index = (current_index + 1) % len(wire_plugs)
+        num_rules = 13
         current_rule: int
         if self.bomb.serial_first_letter:
             current_rule = ascii_lowercase.index(
                 self.bomb.serial_first_letter,
-            ) % len(ascii_lowercase) // 2
+            ) % num_rules
         else:
             current_rule = 0
         while current_index != start_index:
@@ -99,4 +100,4 @@ class FollowTheLeader(ModuleSolver):
             prev_color = wire_colors[prev_index]
             current_index = (current_index + 1) % len(wire_plugs)
             current_plug = wire_plugs[current_index]
-            current_rule = (current_rule + rules_direction) % len(ascii_lowercase) // 2
+            current_rule = (current_rule + rules_direction) % num_rules
