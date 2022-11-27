@@ -1,6 +1,6 @@
 """Basic Hypothesis test suite for ktane.ask."""
 
-import string
+from string import digits as digits_str
 import sys
 from typing import Set
 from unittest.mock import patch
@@ -69,7 +69,7 @@ def test_positive_int(data_obj: st.DataObject) -> None:
     """Test that ask.positive_int actually returns positive nonzero integers."""
     try:
         with patch(
-            "builtins.input", lambda _: data_obj.draw(st.sampled_from(string.digits)),
+            "builtins.input", lambda _: data_obj.draw(st.sampled_from(digits_str)),
         ):
             return_int = ask.positive_int()
             assert return_int > 0
