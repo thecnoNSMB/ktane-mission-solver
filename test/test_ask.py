@@ -1,7 +1,7 @@
 """Basic Hypothesis test suite for ktane.ask."""
 
-from string import digits as digits_str
 import sys
+from string import digits as digits_str
 from typing import Set
 from unittest.mock import patch
 
