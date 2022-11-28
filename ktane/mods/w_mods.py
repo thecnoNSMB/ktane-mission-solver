@@ -1,10 +1,9 @@
-"Modded modules whose names begin with the letter W."
+"""Modded modules whose names begin with the letter W."""
 
 from typing import Final
 
-from ktane.directors import ModuleSolver
-from ktane.ask import talk
 from ktane import ask
+from ktane.directors import ModuleSolver
 
 __all__ = [
     "WordScramble",
@@ -12,23 +11,51 @@ __all__ = [
 
 
 class WordScramble(ModuleSolver):
-    "Solver for Word Scramble."
+    """Solver for Word Scramble."""
+
     name: Final = "Word Scramble"
     id: Final = "WordScrambleModule"
     required_edgework: Final = ()
 
-    words: Final = {"module", "ottawa", "banana", "kaboom", "letter", "widget",
-                    "person", "sapper", "wiring", "archer", "device", "rocket",
-                    "damage", "defuse", "flames", "semtex", "cannon", "blasts",
-                    "attack", "weapon", "charge", "napalm", "mortar", "bursts",
-                    "casing", "disarm", "keypad", "button", "robots", "kevlar"}
+    words: Final = {
+        "module",
+        "ottawa",
+        "banana",
+        "kaboom",
+        "letter",
+        "widget",
+        "person",
+        "sapper",
+        "wiring",
+        "archer",
+        "device",
+        "rocket",
+        "damage",
+        "defuse",
+        "flames",
+        "semtex",
+        "cannon",
+        "blasts",
+        "attack",
+        "weapon",
+        "charge",
+        "napalm",
+        "mortar",
+        "bursts",
+        "casing",
+        "disarm",
+        "keypad",
+        "button",
+        "robots",
+        "kevlar",
+    }
 
     def stage(self) -> None:
-        talk("What is displayed on the module?")
+        ask.talk("What is displayed on the module?")
         scramble = ask.str_from_regex(r"[a-z]{6}")
-        while set(scramble) not in [set(w) for w in self.words]:
-            talk("Those letters don't correspond to a known word.")
-            talk("What is displayed on the module?")
+        while set(scramble) not in {set(word) for word in self.words}:
+            ask.talk("Those letters don't correspond to a known word.")
+            ask.talk("What is displayed on the module?")
             scramble = ask.str_from_regex(r"[a-z]{6}")
-        answer = [w for w in self.words if set(w) == set(scramble)][0]
-        talk(f'Type in the word "{answer}".')
+        answer = [word for word in self.words if set(word) == set(scramble)][0]
+        ask.talk('Type in the word "{0}".'.format(answer))
