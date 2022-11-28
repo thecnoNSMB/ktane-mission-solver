@@ -1,0 +1,11 @@
+{
+  "EnabledList": [
+    "AnagramsModule",
+    "ColourFlash",
+    "CrazyTalk",
+    "FollowTheLeaderModule",
+    "TurnTheKeyAdvanced",
+    "WordScrambleModule"
+  ],
+  "Operation": 0
+}
