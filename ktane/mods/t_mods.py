@@ -1,10 +1,10 @@
-"Modded modules whose names begin with the letter T."
+"""Modded modules whose names begin with the letter T."""
 
 from collections import deque  # TurnTheKeys
-from typing import Final, Deque
+from typing import Deque, Final
 
+from ktane import ask
 from ktane.directors import ModuleSolver
-from ktane.ask import talk
 
 __all__ = [
     "TurnTheKeys",
@@ -12,31 +12,57 @@ __all__ = [
 
 
 class TurnTheKeys(ModuleSolver):
-    "Solver for Turn The Keys."
+    """Solver for Turn The Keys."""
+
     name: Final = "Turn The Keys"
     id: Final = "TurnTheKeyAdvanced"
     required_edgework: Final = ()
 
     required_solves: Final = (
-        "Password", "WhosOnFirst", "Keypad", "Morse", "Wires", "BigButton",
-        "ColourFlash",  # Crazy Talk, Listening, Orientation Cube, Two Bits, Round Keypad
+        # vanilla modules
+        "BigButton",  # The Button
+        "Keypad",
+        "Morse",
+        "Password",
+        "WhosOnFirst",
+        "Wires",
+        # modded modules
+        "ColourFlash",
+        "CrazyTalk",
+        "KeypadV2",  # Round Keypad
+        "Listening",
+        "OrientationCube",
+        "TwoBits",
     )
     banned_solves: Final = (
-        "Maze", "Memory", "Venn", "WireSequence", "Simon",
-        # Cryptography, Semaphore, Combination Lock, Astrology, Switches, Plumbing
+        # vanilla modules
+        "Maze",
+        "Memory",
+        "Simon",
+        "Venn",  # Complicated Wires
+        "WireSequence",
+        # modded modules
+        "combinationLock",
+        "CryptModule",  # Cryptography
+        "MazeV2",  # Plumbing
+        "Semaphore",
+        "spwizAstrology",  # Astrology
+        "switchModule",  # Switches
     )
 
     right_keys_turned: bool
 
     def resort_queue(self, queue: Deque[ModuleSolver]) -> Deque[ModuleSolver]:
-        # todo: only resort if needed
-        new_queue = deque(module for module in queue
-                          if module.id not in self.required_solves
-                          and module.id not in self.banned_solves)
-        new_queue.extend(module for module in queue
-                         if module.id in self.required_solves)
-        new_queue.extendleft(module for module in queue
-                             if module.id in self.banned_solves)
+        # TODO: only resort if needed
+        new_queue = deque(
+            module for module in queue
+            if module.id not in self.required_solves
+            and module.id not in self.banned_solves
+        )
+        new_queue.extend(module for module in queue if module.id in self.required_solves)
+        new_queue.extendleft(
+            module for module in queue if module.id in self.banned_solves
+        )
         return new_queue
 
     def custom_data_init(self) -> None:
@@ -48,8 +74,12 @@ class TurnTheKeys(ModuleSolver):
 
     def stage(self) -> None:
         if not self.right_keys_turned:
-            talk("This module and others like it have a number"
-                 " displaying each module's priority.")  # first time this bomb only
-            talk("Turn each right key on modules of this type,"
-                 " in descending order of priority.")
-        talk("Turn the lowest priority left key that hasn't already been turned.")
+            ask.talk(
+                "This module and others like it have a"
+                + " number displaying each module's priority.",
+            )  # TODO: display first time this bomb only
+            ask.talk(
+                "Turn each right key on modules of this"
+                + " type, in descending order of priority.",
+            )
+        ask.talk("Turn the lowest priority left key that hasn't already been turned.")
