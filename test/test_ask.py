@@ -1,6 +1,5 @@
 """Basic Hypothesis test suite for ktane.ask."""
 
-import sys
 from string import digits as digits_str
 from typing import Set
 from unittest.mock import patch
@@ -8,8 +7,7 @@ from unittest.mock import patch
 from hypothesis import assume, given
 from hypothesis import strategies as st
 
-sys.path.append("..")  # TODO: don't?
-from ktane import ask  # noqa: E402
+from ktane import ask
 
 
 @given(st.sets(st.text()), st.booleans(), st.booleans(), st.data())

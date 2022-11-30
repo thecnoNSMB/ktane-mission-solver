@@ -1,12 +1,10 @@
 """Hypothesis strategies for generating project-specific objects."""
 
-import sys
 from typing import Any
 
 from hypothesis import strategies as st
 
-sys.path.append("..")
-from ktane.directors import EdgeFlag, Edgework, Port  # noqa: E402
+from ktane.directors import EdgeFlag, Edgework, Port
 
 
 @st.composite

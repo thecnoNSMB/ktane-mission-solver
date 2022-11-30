@@ -1,6 +1,5 @@
 """Basic Hypothesis test suite for ktane.directors."""
 
-import sys
 from typing import List
 from unittest.mock import patch
 
@@ -8,8 +7,7 @@ from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 from mocks import MockAsk, mock_talk
 
-sys.path.append("..")  # TODO: don't?
-from ktane import directors  # noqa: E402
+from ktane import directors
 
 
 @given(st.lists(st.sampled_from(directors.EdgeFlag)), st.data())
