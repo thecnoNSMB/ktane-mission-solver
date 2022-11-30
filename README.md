@@ -1,5 +1,5 @@
 # ktane-mission-solver
-A Python 3.8 package that can easily guide you through defusing KTANE bombs you specify.
+A Python 3.10 package that can easily guide you through defusing KTANE bombs you specify.
 
 Currently only supports vanilla modules and a few modded modules. Support for more modded modules (and maybe needies) will be added in future. Its experting profile is `Ktane Mission Solver.json`, though it won't cooperate with other experts.
 
