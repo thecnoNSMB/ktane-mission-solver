@@ -1,5 +1,6 @@
 """Contains coordinating structure and utility for bomb management and solvers."""
 
+import sys
 from abc import ABC, abstractmethod
 from collections import deque
 from enum import Enum, Flag, auto
@@ -90,7 +91,7 @@ class Edgework:  # TODO: move the serial number processing to solverutils
         self.strikes += 1
         if self.hit_strike_limit:
             ask.talk("Bomb exploded! Hopefully it wasn't my fault.")
-            raise SystemExit
+            sys.exit()
 
     def add_solve(self) -> None:
         """Add a solve."""
