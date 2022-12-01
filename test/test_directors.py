@@ -6,8 +6,9 @@ from unittest.mock import patch
 from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
-from .mocks import MockAsk, mock_talk
 from ktane import directors
+
+from .mocks import MockAsk, mock_talk
 
 
 @given(st.lists(st.sampled_from(directors.EdgeFlag)), st.data())
