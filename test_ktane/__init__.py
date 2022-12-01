@@ -1,1 +1,1 @@
-"""Hypothesis property tests for ktane project."""
+"""Hypothesis property tests for the ktane project."""
