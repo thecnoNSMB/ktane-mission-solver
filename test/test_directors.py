@@ -5,8 +5,8 @@ from unittest.mock import patch
 
 from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
-from mocks import MockAsk, mock_talk
 
+from .mocks import MockAsk, mock_talk
 from ktane import directors
 
 
