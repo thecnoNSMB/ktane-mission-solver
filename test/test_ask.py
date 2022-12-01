@@ -80,6 +80,7 @@ def test_positive_int(data_obj: st.DataObject) -> None:
 
 
 if __name__ == "__main__":
+    # TODO: pytest can suppress output i think
     ask.ENABLE_PRINTING = False  # type: ignore[misc] #disable printing for the test
     test_str_from_set()
     test_list_from_set()
