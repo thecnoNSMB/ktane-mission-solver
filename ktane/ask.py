@@ -28,7 +28,7 @@ _MAX_ITERATIONS: Final = 20
 
 
 def _from_func(
-    func: Callable[[str], bool], *, case_sensitive: bool, allow_empty: bool,
+    func: Callable[[str], bool], *, case_sensitive: bool, allow_empty: bool = False,
 ) -> str:
     """
     Get a single string from the user that satisfies func,
